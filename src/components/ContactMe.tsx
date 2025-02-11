@@ -8,18 +8,28 @@ import Swal from "sweetalert2";
 const ContactMe = () => {
   const [aosType, setAosType] = useState("fade-left");
 
-  const handleContactForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleContactForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const email = Object.fromEntries(formData);
-    console.log(email);
-
-    Swal.fire({
-      title: "Good job!",
-      text: "Your mail has been sent!",
-      icon: "success",
-    });
+    const messageData = Object.fromEntries(formData);
+  
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(messageData),
+      });
+      
+      if (res.ok) {
+        Swal.fire("Success!", "Your message has been sent!", "success");
+        form.reset();
+      } else {
+        Swal.fire("Error!", "Something went wrong.", "error");
+      }
+    } catch (error) {
+      Swal.fire("Error!", "Network issue.", "error");
+    }
   };
 
   useEffect(() => {

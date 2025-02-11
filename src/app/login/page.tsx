@@ -1,24 +1,13 @@
 "use client";
+
 import Lottie from "lottie-react";
 import Image from "next/image";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import loginPageAnimation from "../../../Animation - 1715749319003.json"
 import { signIn } from "next-auth/react";
-type FormValues = {
-  email: string;
-  password: string;
-};
+import loginPageAnimation from "../../../Animation - 1715749319003.json";
 
 const LoginPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>();
-
-  const onSubmit = async (data: FormValues) => {
-    console.log(data);
+  const handleOAuthLogin = async (provider: "google" | "github") => {
+    await signIn(provider, { callbackUrl: "/" });
   };
 
   return (
@@ -28,71 +17,18 @@ const LoginPage = () => {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
         <div>
-        <Lottie
-                        animationData={loginPageAnimation}
-                        aria-aria-labelledby="use lottie animation"
-                    />
+          <Lottie animationData={loginPageAnimation} />
         </div>
 
         <div className="w-[80%] mx-auto bg-[#2a2a2b] p-6 shadow-lg rounded-lg">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-6">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-white"
-              >
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                {...register("email")}
-                placeholder="Email"
-                className="mt-1 block w-full px-4 py-2 border border-gray-400 bg-white rounded-md shadow-sm  sm:text-sm"
-                required
-              />
-            </div>
+          <p className="text-center text-lg text-white mb-4">Sign In Using</p>
 
-            <div className="mb-6">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-white"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                {...register("password")}
-                placeholder="Password"
-                className="mt-1 block w-full px-4 py-2 border bg-white border-gray-300 rounded-md shadow-sm  sm:text-sm"
-                required
-              />
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="w-full border border-[#ff014f] text-[#ff014f] font-semibold py-2 px-4 rounded-md shadow-md hover:bg-[#ff014f] hover:text-white"
-              >
-                Login
-              </button>
-            </div>
-          </form>
-
-          <p className="text-center mt-4 text-sm text-white">
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="text-[#ff014f] hover:underline">
-              Create an account
-            </Link>
-          </p>
-
-          <p className="text-center mt-6 text-sm text-[#ff014f]">
-            Or Sign Up Using
-          </p>
-
-          <div className="flex justify-center gap-4 mt-4">
-            <button className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full shadow-md hover:bg-gray-200">
+          {/* OAuth Buttons */}
+          <div className="flex justify-center gap-4">
+            <button
+              className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full shadow-md hover:bg-gray-200"
+              onClick={() => handleOAuthLogin("google")}
+            >
               <Image
                 src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png"
                 width={30}
@@ -100,9 +36,10 @@ const LoginPage = () => {
                 alt="Google logo"
               />
             </button>
-            <button className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full shadow-md hover:bg-gray-200"onClick={()=> signIn("github",{
-                callbackUrl: "http://localhost:3000/"
-            })}>
+            <button
+              className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full shadow-md hover:bg-gray-200"
+              onClick={() => handleOAuthLogin("github")}
+            >
               <Image
                 src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
                 width={25}

@@ -1,4 +1,4 @@
-import Sidebar from "@/components/shared/Sidebar";
+import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen my-2">
+    <div className="min-h-screen my-2 bg-[#2a2a2b]">
       <div className="flex justify-between">
         <div className="w-[20%]">
           <Sidebar />
