@@ -47,7 +47,7 @@ const LoginPage = () => {
                 type="email"
                 {...register("email")}
                 placeholder="Email"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 bg-white rounded-md shadow-sm  sm:text-sm"
+                className="mt-1 block w-full px-4 py-2 border border-gray-400 bg-white rounded-md shadow-sm  sm:text-sm"
                 required
               />
             </div>
