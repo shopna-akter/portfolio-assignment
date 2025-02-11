@@ -1,53 +1,70 @@
-// pages/index.tsx
-import Image from 'next/image';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+"use client";
+
+import { useEffect, useState } from "react";
+import { animateScroll as scroll } from "react-scroll";
+import Aboutme from "@/components/AboutMe";
+import ContactMe from "@/components/ContactMe";
+import Footer from "@/components/Footer";
+import MyProjects from "@/components/Project";
+import MySkills from "@/components/MySkill";
+import Navbar from "@/components/Navbar";
+import Profile from "@/components/Profile";
 
 export default function Home() {
-  return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col justify-between">
-      <Navbar />
-      
-      <main className="container mx-auto py-10 text-center">
-        {/* Hero Section */}
-        <section>
-          <h1 className="text-4xl font-bold">Nihal's Portfolio</h1>
-          <p className="text-gray-400 mt-2">React Developer | MERN Stack Enthusiast</p>
-          <div className="mt-4">
-            <a
-              href="/resume.pdf"
-              download
-              className="px-6 py-2 bg-blue-600 rounded-lg hover:bg-blue-700"
-            >
-              Download Resume
-            </a>
-          </div>
-        </section>
-      
-        {/* Skills Section */}
-        <section className="py-10">
-          <h2 className="text-2xl font-semibold text-center">Skills</h2>
-          <div className="flex justify-center gap-6 mt-4">
-            <Image src="/icons/react.svg" alt="React" width={50} height={50} />
-            <Image src="/icons/nextjs.svg" alt="Next.js" width={50} height={50} />
-            <Image src="/icons/tailwind.svg" alt="Tailwind CSS" width={50} height={50} />
-          </div>
-        </section>
+  const [showButton, setShowButton] = useState(false);
 
-        {/* Featured Projects Section */}
-        <section className="py-10">
-          <h2 className="text-2xl font-semibold text-center">Featured Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-            <div className="bg-gray-800 p-4 rounded-lg shadow-lg">
-              <h3 className="text-lg font-semibold">Project Name</h3>
-              <p className="text-gray-400">Short description of the project.</p>
-              <a href="#" className="text-blue-400 hover:underline">View Project</a>
-            </div>
+  useEffect(() => {
+    const handleScroll = () => {
+      const aboutmeHeight = document.getElementById("aboutme")?.clientHeight || 0;
+      setShowButton(window.scrollY > aboutmeHeight);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className="bg-[#2a2a2b] min-h-screen relative">
+      <Navbar />
+      <div className="flex lg:gap-36 flex-col lg:flex-row p-5 lg:p-10">
+        <div className="lg:sticky ml-4 lg:ml-8 lg:mb-0 mb-12 lg:top-20 lg:h-screen lg:flex lg:flex-col justify-center lg:w-auto">
+          <Profile />
+        </div>
+        <div className="lg:w-auto lg:space-y-10 flex flex-col lg:flex-none items-center lg:ml-0">
+          <div id="aboutme">
+            <Aboutme />
           </div>
-        </section>
-      </main>
-      
+          <div id="myskills">
+            <MySkills />
+          </div>
+          <div id="myprojects">
+            <h2 className="text-2xl text-white font-bold pt-4 my-4">My Projects</h2>
+            <MyProjects />
+          </div>
+          <div id="contactme">
+            <ContactMe />
+          </div>
+        </div>
+      </div>
       <Footer />
+
+      {showButton && (
+        <button
+          onClick={() => scroll.scrollToTop()}
+          className="fixed bottom-10 right-10 p-3 bg-gradient-to-br from-[#1e2024] to-[#23272b] text-[#ff014f] rounded-full shadow-lg"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-8 h-8"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }
