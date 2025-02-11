@@ -13,9 +13,12 @@
     "@types/react-icons": "^3.0.0",
     "antd": "^5.23.4",
     "aos": "^2.3.4",
+    "lottie-react": "^2.4.1",
     "next": "15.1.6",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
     "react-scroll": "^1.9.2",
     "sweetalert2": "^11.16.0"
   },
