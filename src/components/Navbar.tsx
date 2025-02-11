@@ -76,7 +76,7 @@ const Navbar = () => {
               <li key={section.id}>
                 <Link href={`/#${section.id}`}>
                   <span
-                    className={`mr-2 btn btn-outline hover:bg-[#ff014f] text-[#a0a8b3] border-[#ff014f] ${
+                    className={`mr-2 btn btn-outline hover:bg-[#ff014f] border-[#ff014f] ${
                       currentSection === section.id ? "bg-[#ff014f] text-white" : ""
                     }`}
                   >

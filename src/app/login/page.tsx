@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import loginPageAnimation from "../../../Animation - 1715749319003.json"
+import { signIn } from "next-auth/react";
 type FormValues = {
   email: string;
   password: string;
@@ -86,7 +87,7 @@ const LoginPage = () => {
             </Link>
           </p>
 
-          <p className="text-center mt-6 text-sm text-white">
+          <p className="text-center mt-6 text-sm text-[#ff014f]">
             Or Sign Up Using
           </p>
 
@@ -99,7 +100,9 @@ const LoginPage = () => {
                 alt="Google logo"
               />
             </button>
-            <button className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full shadow-md hover:bg-gray-200">
+            <button className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full shadow-md hover:bg-gray-200"onClick={()=> signIn("github",{
+                callbackUrl: "http://localhost:3000/"
+            })}>
               <Image
                 src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
                 width={25}
