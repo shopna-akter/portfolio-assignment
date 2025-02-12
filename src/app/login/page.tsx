@@ -3,7 +3,7 @@
 import Lottie from "lottie-react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
-import loginPageAnimation from "../../../Animation - 1715749319003.json";
+import loginPageAnimation from "../../../public/Animation - 1715749319003.json";
 
 const LoginPage = () => {
   const handleOAuthLogin = async (provider: "google" | "github") => {

@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import {FaCog, FaHome, FaMailBulk, FaPenFancy } from "react-icons/fa";
 
