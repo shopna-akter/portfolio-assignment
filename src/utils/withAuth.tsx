@@ -11,12 +11,12 @@ const withAuth = (WrappedComponent: React.FC) => {
 
     useEffect(() => {
       if (status === "unauthenticated") {
-        router.replace("/api/auth/signin"); // Redirect to social login page
+        router.replace("/login");
       }
     }, [status, router]);
 
     if (status === "loading") return <p className="text-white">Loading...</p>;
-    if (!session) return null; // Prevents flicker
+    if (!session) return null;
 
     return <WrappedComponent {...props} />;
   };

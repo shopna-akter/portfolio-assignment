@@ -25,7 +25,7 @@ const Sidebar = () => {
         </li>
         <li>
           <Link
-            href="/dashboard/project"
+            href="/dashboard/projects"
             className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 hover:text-gray-600 text-white"
           >
             <FaCog className="h-5 w-5" />

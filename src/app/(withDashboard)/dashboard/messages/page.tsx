@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-
+import withAuth from "@/utils/withAuth"
 interface Message {
   _id: string;
   name: string;
@@ -53,4 +53,4 @@ const MessageList = () => {
   );
 };
 
-export default MessageList;
+export default withAuth(MessageList);

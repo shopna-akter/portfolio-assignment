@@ -1,3 +1,6 @@
+"use client"
+import withAuth from "@/utils/withAuth"
+
 const DashboardPage = () => {
   return (
     <div className="">
@@ -6,4 +9,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default withAuth(DashboardPage);

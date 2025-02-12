@@ -9,6 +9,7 @@ import MyProjects from "@/components/Project";
 import MySkills from "@/components/MySkill";
 import Navbar from "@/components/Navbar";
 import Profile from "@/components/Profile";
+import Blog from "@/components/Blogs";
 
 export default function Home() {
   const [showButton, setShowButton] = useState(false);
@@ -38,8 +39,11 @@ export default function Home() {
             <MySkills />
           </div>
           <div id="myprojects">
-            <h2 className="text-2xl text-white font-bold pt-4 my-4">My Projects</h2>
+            <h2 className="text-2xl text-white font-bold pt-4 ">My Projects</h2>
             <MyProjects />
+          </div>
+          <div id="blogs">
+            <Blog />
           </div>
           <div id="contactme">
             <ContactMe />
