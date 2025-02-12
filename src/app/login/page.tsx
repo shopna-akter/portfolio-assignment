@@ -1,9 +1,12 @@
 "use client";
 
-import Lottie from "lottie-react";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { signIn } from "next-auth/react";
-import loginPageAnimation from "../../../public/Animation - 1715749319003.json";
+import loginPageAnimation from "../../../Animation - 1715749319003.json";
+import Image from "next/image";
+
+// Fix Lottie Import
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 const LoginPage = () => {
   const handleOAuthLogin = async (provider: "google" | "github") => {

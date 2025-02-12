@@ -2,8 +2,6 @@
 
 import Aos from "aos";
 import { useEffect, useState } from "react";
-import { FaHtml5, FaJs, FaReact } from "react-icons/fa";
-import { SiCss3 } from "react-icons/si";
 import "aos/dist/aos.css";
 
 const MySkills = () => {
