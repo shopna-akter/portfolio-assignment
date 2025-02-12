@@ -62,6 +62,7 @@ const Navbar = () => {
                       {section.label}
                     </span>
                   </Link>
+                  
                 </li>
               ))}
             </ul>
@@ -69,6 +70,7 @@ const Navbar = () => {
           <Link href="/" className="text-xl text-white font-semibold md:ml-6 ml-2">
             Nihal's Portfolio
           </Link>
+              <Link href="/dashboard" className={`ml-2 btn btn-outline hover:bg-[#ff014f] text-[#a0a8b3] border-[#ff014f] mb-1 `}>Dashboard</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">

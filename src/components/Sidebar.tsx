@@ -8,7 +8,7 @@ const Sidebar = () => {
         <li>
           <Link
             href="/"
-            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700"
+            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 hover:text-gray-600 text-white"
           >
             <FaHome className="h-5 w-5" />
             <span>Home</span>
@@ -17,7 +17,7 @@ const Sidebar = () => {
         <li>
           <Link
             href="/dashboard/messages"
-            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700"
+            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 hover:text-gray-600 text-white "
           >
             <FaMailBulk className="h-5 w-5" />
             <span>Messages</span>
@@ -26,7 +26,7 @@ const Sidebar = () => {
         <li>
           <Link
             href="/dashboard/project"
-            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700"
+            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 hover:text-gray-600 text-white"
           >
             <FaCog className="h-5 w-5" />
             <span>Project</span>
@@ -35,7 +35,7 @@ const Sidebar = () => {
         <li>
           <Link
             href="/dashboard/blog"
-            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700"
+            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 hover:text-gray-600 text-white"
           >
             <FaPenFancy className="h-5 w-5" />
             <span>Blogs</span>
