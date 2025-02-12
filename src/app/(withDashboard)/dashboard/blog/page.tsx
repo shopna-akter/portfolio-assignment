@@ -73,7 +73,6 @@ const BlogsPage = () => {
     setLoading(false);
   };
 
-  // Handle Edit Submit
   const handleEditSubmit = async (values: Omit<Blog, "_id" | "date">) => {
     if (!editingBlog) return;
     setLoading(true);
