@@ -20,7 +20,7 @@ const Blogs = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/blogs")
+    fetch("https://portfolio-assignment-server-nu.vercel.app/api/v1/blogs")
       .then((res) => res.json())
       .then((data) => setBlogs(data))
       .catch((error) => console.error("Error fetching blogs:", error));

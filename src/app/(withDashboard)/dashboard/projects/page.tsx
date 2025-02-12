@@ -23,7 +23,7 @@ const ProjectsPage = () => {
   const fetchProjects = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/v1/projects");
+      const res = await fetch("https://portfolio-assignment-server-nu.vercel.app/api/v1/projects");
       const data = await res.json();
       setProjects(data);
     } catch (error) {
@@ -53,7 +53,7 @@ const ProjectsPage = () => {
   const handleAddSubmit = async (values: Omit<Project, "_id">) => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/v1/projects", {
+      const res = await fetch("https://portfolio-assignment-server-nu.vercel.app/api/v1/projects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -74,7 +74,7 @@ const ProjectsPage = () => {
     if (!editingProject) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/projects/${editingProject._id}`, {
+      const res = await fetch(`https://portfolio-assignment-server-nu.vercel.app/api/v1/projects/${editingProject._id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -94,7 +94,7 @@ const ProjectsPage = () => {
   const deleteProject = async (id: string) => {
     setLoading(true);
     try {
-      await fetch(`http://localhost:5000/api/v1/projects/${id}`, { method: "DELETE" });
+      await fetch(`https://portfolio-assignment-server-nu.vercel.app/api/v1/projects/${id}`, { method: "DELETE" });
       message.success("Project deleted");
       fetchProjects();
     } catch (error) {

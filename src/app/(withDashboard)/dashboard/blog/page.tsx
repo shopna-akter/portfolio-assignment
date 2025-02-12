@@ -25,7 +25,7 @@ const BlogsPage = () => {
   const fetchBlogs = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/v1/blogs");
+      const res = await fetch("https://portfolio-assignment-server-nu.vercel.app/api/v1/blogs");
       const data = await res.json();
       setBlogs(data);
     } catch (error) {
@@ -55,7 +55,7 @@ const BlogsPage = () => {
   const handleAddSubmit = async (values: Omit<Blog, "_id" | "date">) => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/v1/blogs", {
+      const res = await fetch("https://portfolio-assignment-server-nu.vercel.app/api/v1/blogs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -77,7 +77,7 @@ const BlogsPage = () => {
     if (!editingBlog) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/blogs/${editingBlog._id}`, {
+      const res = await fetch(`https://portfolio-assignment-server-nu.vercel.app/api/v1/blogs/${editingBlog._id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -99,7 +99,7 @@ const BlogsPage = () => {
   const deleteBlog = async (id: string) => {
     setLoading(true);
     try {
-      await fetch(`http://localhost:5000/api/v1/blogs/${id}`, { method: "DELETE" });
+      await fetch(`https://portfolio-assignment-server-nu.vercel.app/api/v1/blogs/${id}`, { method: "DELETE" });
       message.success("Blog deleted");
       fetchBlogs();
     } catch (error) {

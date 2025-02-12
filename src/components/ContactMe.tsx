@@ -15,7 +15,7 @@ const ContactMe = () => {
     const messageData = Object.fromEntries(formData);
   
     try {
-      const res = await fetch("http://localhost:5000/api/v1/messages", {
+      const res = await fetch("https://portfolio-assignment-server-nu.vercel.app/api/v1/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(messageData),

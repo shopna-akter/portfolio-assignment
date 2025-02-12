@@ -39,7 +39,7 @@ const Project = () => {
     }, []);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/v1/projects")
+        fetch("https://portfolio-assignment-server-nu.vercel.app/api/v1/projects")
             .then((res) => res.json())
             .then((data) => setProjects(data))
             .catch((error) => console.error("Error fetching projects:", error));
