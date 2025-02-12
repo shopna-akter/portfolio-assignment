@@ -5,7 +5,7 @@ import { Table, Button, Modal, Form, Input, message } from "antd";
 
 interface Project {
   _id: string;
-  name: string;
+  title: string;
   description: string;
   image: string;
   url: string;
@@ -14,7 +14,8 @@ interface Project {
 const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [addModalVisible, setAddModalVisible] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [form] = Form.useForm();
 
@@ -35,40 +36,56 @@ const ProjectsPage = () => {
     fetchProjects();
   }, []);
 
-  // Open Modal for Add/Edit
-  const openModal = (project?: Project) => {
-    setEditingProject(project || null);
-    setModalVisible(true);
-    if (project) {
-      form.setFieldsValue(project);
-    } else {
-      form.resetFields();
-    }
+  // Open Add Modal
+  const openAddModal = () => {
+    form.resetFields();
+    setAddModalVisible(true);
   };
 
-  // Handle Add/Edit Submit
-  const handleSubmit = async (values: Project) => {
+  // Open Edit Modal
+  const openEditModal = (project: Project) => {
+    setEditingProject(project);
+    form.setFieldsValue(project);
+    setEditModalVisible(true);
+  };
+
+  // Handle Add Submit
+  const handleAddSubmit = async (values: Omit<Project, "_id">) => {
     setLoading(true);
     try {
-      const method = editingProject ? "PATCH" : "POST";
-      const url = editingProject
-        ? `http://localhost:5000/api/v1/projects/${editingProject._id}`
-        : "http://localhost:5000/api/v1/projects";
-
-      const res = await fetch(url, {
-        method,
+      const res = await fetch("http://localhost:5000/api/v1/projects", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
-
-      if (!res.ok) throw new Error("Failed to save project");
-
-      message.success(editingProject ? "Project updated" : "Project added");
-      setModalVisible(false);
+      if (!res.ok) throw new Error("Failed to add project");
+      message.success("Project added");
+      setAddModalVisible(false);
       fetchProjects();
     } catch (error) {
       console.error(error);
-      message.error("Error saving project");
+      message.error("Error adding project");
+    }
+    setLoading(false);
+  };
+
+  // Handle Edit Submit
+  const handleEditSubmit = async (values: Omit<Project, "_id">) => {
+    if (!editingProject) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`http://localhost:5000/api/v1/projects/${editingProject._id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) throw new Error("Failed to update project");
+      message.success("Project updated");
+      setEditModalVisible(false);
+      fetchProjects();
+    } catch (error) {
+      console.error(error);
+      message.error("Error updating project");
     }
     setLoading(false);
   };
@@ -89,7 +106,7 @@ const ProjectsPage = () => {
 
   // Columns for Ant Design Table
   const columns = [
-    { title: "Project Name", dataIndex: "name", key: "name" },
+    { title: "Project Name", dataIndex: "title", key: "title" },
     { title: "Description", dataIndex: "description", key: "description" },
     {
       title: "Image",
@@ -102,7 +119,7 @@ const ProjectsPage = () => {
       key: "actions",
       render: (_: any, record: Project) => (
         <>
-          <Button onClick={() => openModal(record)} type="primary" className="mr-2">
+          <Button onClick={() => openEditModal(record)} type="primary" className="mr-2">
             Edit
           </Button>
           <Button onClick={() => deleteProject(record._id)} type="default" danger>
@@ -117,21 +134,21 @@ const ProjectsPage = () => {
     <div className="p-6">
       <h1 className="text-2xl font-semibold text-white mb-4">Project Management</h1>
       
-      <Button type="primary" onClick={() => openModal()} className="mb-4">
+      <Button type="primary" onClick={openAddModal} className="mb-4">
         Add Project
       </Button>
 
       <Table columns={columns} dataSource={projects} rowKey="_id" loading={loading} />
 
-      {/* Modal for Add/Edit */}
+      {/* Add Project Modal */}
       <Modal
-        title={editingProject ? "Edit Project" : "Add Project"}
-        open={modalVisible}
-        onCancel={() => setModalVisible(false)}
+        title="Add Project"
+        open={addModalVisible}
+        onCancel={() => setAddModalVisible(false)}
         footer={null}
       >
-        <Form form={form} layout="vertical" onFinish={handleSubmit}>
-          <Form.Item name="name" label="Project Name" rules={[{ required: true, message: "Enter project name" }]}>
+        <Form form={form} layout="vertical" onFinish={handleAddSubmit}>
+          <Form.Item name="title" label="Project Name" rules={[{ required: true, message: "Enter project name" }]}>
             <Input />
           </Form.Item>
           <Form.Item name="description" label="Description" rules={[{ required: true, message: "Enter description" }]}>
@@ -140,11 +157,31 @@ const ProjectsPage = () => {
           <Form.Item name="image" label="Image URL" rules={[{ required: true, message: "Enter image URL" }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="url" label="Project URL" rules={[{ required: true, message: "Enter project URL" }]}>
+          <Button type="primary" htmlType="submit" loading={loading}>
+            Add
+          </Button>
+        </Form>
+      </Modal>
+
+      {/* Edit Project Modal */}
+      <Modal
+        title="Edit Project"
+        open={editModalVisible}
+        onCancel={() => setEditModalVisible(false)}
+        footer={null}
+      >
+        <Form form={form} layout="vertical" onFinish={handleEditSubmit}>
+          <Form.Item name="title" label="Project Name" rules={[{ required: true, message: "Enter project name" }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="description" label="Description" rules={[{ required: true, message: "Enter description" }]}>
+            <Input.TextArea rows={3} />
+          </Form.Item>
+          <Form.Item name="image" label="Image URL" rules={[{ required: true, message: "Enter image URL" }]}>
             <Input />
           </Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
-            {editingProject ? "Update" : "Add"}
+            Update
           </Button>
         </Form>
       </Modal>
